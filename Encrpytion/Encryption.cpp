@@ -66,7 +66,7 @@ void Encrypt(const string& Key, const string& Text)
         encryptedText += Text[i] + Key[i % (keySize- 1)];
     }
 
-    cout << encryptedText << endl;
+    cout << "Encrypted Text: " << encryptedText << endl;
 
 }
 
@@ -81,6 +81,6 @@ void Decrypt(const string& Key, const string& Text)
         decryptedText += Text[i] - Key[i % (keySize - 1)];
     }
 
-    cout << decryptedText << endl;
+    cout << "Decrypted Text: " << decryptedText << endl;
 
 }
