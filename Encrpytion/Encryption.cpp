@@ -3,12 +3,13 @@
 
 #include <iostream>
 #include <string>
+#include <array>
 
 using namespace std;
 
 void InitializeProgram();
-void Encrypt(int key, const string &Text);
-void Decrypt(int key, const string &Text);
+void Encrypt(const string& Key, const string &Text);
+void Decrypt(const string& Key, const string &Text);
 
 
 int main()
@@ -23,16 +24,15 @@ int main()
 void InitializeProgram()
 {
     int choice;
-    int key;
+    string keyWord;
     string sentence;
-
 
     cout << "Press 1 to encrypt your words." << endl;
     cout << "Press 2 to decrypt your words." << endl;
     cin >> choice;
 
-    cout << "Enter the key number" << endl;
-    cin >> key;
+    cout << "Enter the keyword (Without any space)"<< endl;
+    cin >> keyWord;
 
     cin.ignore();
 
@@ -42,38 +42,45 @@ void InitializeProgram()
     switch (choice)
     {
     case 1:
-        Encrypt(key, sentence);
+        Encrypt(keyWord, sentence);
         break;
     case 2:
-        Decrypt(key, sentence);
+        Decrypt(keyWord, sentence);
         break;
     default:
-        cout << "Invalid Number" << endl;
+        cout << "Invalid Process" << endl;
         break;
     }
+
     InitializeProgram();
 }
 
-void Encrypt(int key, const string& Text)
+void Encrypt(const string& Key, const string& Text)
 {
     string encryptedText("");
 
-    for (const char letter : Text)
+    const int keySize = Key.length();
+
+    for (int i = 0; i < Text.length(); i++)
     {
-        encryptedText += letter+key;
+        encryptedText += Text[i] + Key[i % (keySize- 1)];
     }
 
     cout << encryptedText << endl;
+
 }
 
-void Decrypt(int key, const string& Text)
+void Decrypt(const string& Key, const string& Text)
 {
-    string decrypttedText("");
+    string decryptedText("");
 
-    for (const char letter : Text)
+    const int keySize = Key.length();
+
+    for (int i = 0; i < Text.length(); i++)
     {
-        decrypttedText += letter-key;
+        decryptedText += Text[i] - Key[i % (keySize - 1)];
     }
 
-    cout << decrypttedText<< endl;
+    cout << decryptedText << endl;
+
 }
